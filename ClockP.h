@@ -26,7 +26,7 @@ other dealings in this Software without prior written authorization
 from The Open Group.
 
 */
-/* $XFree86$ */
+/* $XFree86: xc/programs/oclock/ClockP.h,v 1.5 2001/12/14 20:01:00 dawes Exp $ */
 
 
 #ifndef _ClockP_h
