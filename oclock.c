@@ -23,6 +23,7 @@ Except as contained in this notice, the name of The Open Group shall not be
 used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
  */
+/* $XFree86: xc/programs/oclock/oclock.c,v 1.7 2001/12/14 20:01:00 dawes Exp $ */
 
 #include <X11/Intrinsic.h>
 #include <X11/Xatom.h>
@@ -31,6 +32,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Xmu/Editres.h>
 #include "Clock.h"
 #include <stdio.h> 
+#include <stdlib.h>
 
 #ifdef XKB
 #include <X11/extensions/XKBbells.h>
@@ -39,8 +41,12 @@ in this Software without prior written authorization from The Open Group.
 #include "oclock.bit"
 #include "oclmask.bit"
 
-extern void exit();
-static void quit();
+static void die ( Widget w, XtPointer client_data, XtPointer call_data );
+static void save ( Widget w, XtPointer client_data, XtPointer call_data );
+static void usage ( void );
+static void quit ( Widget w, XEvent *event, String *params, 
+		   Cardinal *num_params );
+
 
 static XtActionsRec actions[] = {
     {"quit",	quit}
@@ -65,7 +71,7 @@ static void save(w, client_data, call_data)
 
 /* Exit with message describing command line format */
 
-void usage()
+static void usage()
 {
     fprintf(stderr,
 "usage: oclock\n");
@@ -97,9 +103,8 @@ static XrmOptionDescRec options[] = {
 {"-transparent","*clock.transparent",	XrmoptionNoArg,		"TRUE"},
 };
 
-void main(argc, argv)
-    int argc;
-    char **argv;
+int 
+main(int argc, char *argv[])
 {
     XtAppContext xtcontext;
     Widget toplevel;
@@ -146,6 +151,7 @@ void main(argc, argv)
 		      _XEditResCheckMessages, NULL);
 
     XtAppMainLoop(xtcontext);
+    exit(0);
 }
 
 static void quit(w, event, params, num_params)

@@ -23,6 +23,7 @@ Except as contained in this notice, the name of The Open Group shall not be
 used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
  */
+/* $XFree86: xc/programs/oclock/Clock.c,v 1.7 2001/12/14 20:01:00 dawes Exp $ */
 
 /*
  * Clock.c
@@ -36,17 +37,12 @@ in this Software without prior written authorization from The Open Group.
 #include "ClockP.h"
 #include <X11/Xos.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <X11/extensions/shape.h>
 
-#ifdef X_NOT_STDC_ENV
-extern struct tm *localtime();
-#define Time_t long
-extern Time_t time();
-#else
 #include <time.h>
 #define Time_t time_t
-#endif
 
 #define offset(field) XtOffsetOf(ClockRec, clock.field)
 #define goffset(field) XtOffsetOf(WidgetRec, core.field)
@@ -77,9 +73,16 @@ static XtResource resources[] = {
 #undef offset
 #undef goffset
 
-static void 	new_time();
-
-static void Initialize(), Realize(), Destroy(), Redisplay(), Resize();
+static void ClassInitialize ( void );
+static void Initialize ( Widget greq, Widget gnew, ArgList args, 
+			 Cardinal *num_args );
+static void Resize ( Widget widget );
+static void Realize ( Widget gw, XtValueMask *valueMask, 
+		      XSetWindowAttributes *attrs );
+static void Destroy ( Widget gw );
+static void Redisplay ( Widget gw, XEvent *event, Region region );
+static double clock_to_angle ( double clock );
+static void new_time ( XtPointer client_data, XtIntervalId *id );
 
 # define BORDER_SIZE(w)    ((w)->clock.border_size)
 # define WINDOW_WIDTH(w)    (2.0 - BORDER_SIZE(w)*2)
@@ -91,8 +94,6 @@ static void Initialize(), Realize(), Destroy(), Redisplay(), Resize();
 # define HOUR_LENGTH(w)	    (MINUTE_LENGTH(w) * 0.6)
 # define JEWEL_X(w)	    (0.0)
 # define JEWEL_Y(w)	    (1.0 - (BORDER_SIZE(w) + JEWEL_SIZE(w)))
-
-static void ClassInitialize();
 
 ClockClassRec clockClassRec = {
     { /* core fields */
@@ -364,7 +365,7 @@ static void Realize (gw, valueMask, attrs)
     XtCreateWindow( gw, (unsigned)InputOutput, (Visual *)CopyFromParent,
 		     *valueMask, attrs );
     if (!w->clock.transparent)
-	Resize (w);
+	Resize (gw);
     new_time ((XtPointer) gw, 0);
 }
 
@@ -456,11 +457,12 @@ static void new_time (client_data, id)
 			     (60 - tm->tm_sec) * 1000, new_time, client_data);
 	compute_hands (w);
 	if (w->clock.transparent)
-	    Resize (w);
+	    Resize ((Widget)w);
 	else
 	    paint_hands (w, XtWindow (w), w->clock.minuteGC, w->clock.hourGC);
 } /* new_time */
 
+void
 paint_jewel (w, d, gc)
 ClockWidget w;
 Drawable    d;
@@ -480,7 +482,7 @@ GC	    gc;
 /*
  * check to see if the polygon intersects the circular jewel
  */
-
+int
 check_jewel_poly (w, poly)
 ClockWidget	w;
 TPoint		poly[POLY_SIZE];
@@ -504,8 +506,8 @@ TPoint		poly[POLY_SIZE];
 		b2 = sqr (poly[i+1].x - x) + sqr (poly[i+1].y - y);
 		c2 = sqr (poly[i].x - poly[i+1].x) + sqr (poly[i].y - poly[i+1].y);
 		d2 = a2 + b2 - c2;
-		if (d2 <= sqr (size) &&
-		    a2 <= 2 * c2 && b2 <= 2 * c2 ||
+		if ((d2 <= sqr (size) &&
+		    a2 <= 2 * c2 && b2 <= 2 * c2) ||
  		    a2 <= sqr (size) ||
 		    b2 <= sqr (size))
 			return 1;
@@ -514,6 +516,7 @@ TPoint		poly[POLY_SIZE];
     return 0;
 }
 
+void
 check_jewel (w, d, gc)
 ClockWidget	w;
 Drawable	d;
@@ -534,7 +537,7 @@ GC		gc;
  * A hand is a rectangle with a triangular cap at the far end.
  * This is represented with a five sided polygon.
  */
-
+void
 compute_hand (w, a, l, width, poly)
 ClockWidget	w;
 double		a, l, width;
@@ -558,6 +561,7 @@ TPoint		poly[POLY_SIZE];
 	poly[5].y = poly[0].y;
 }
 
+void
 compute_hands (w)
 ClockWidget	w;
 {
@@ -568,6 +572,7 @@ ClockWidget	w;
 	w->clock.polys_valid = 1;
 }
 
+void
 paint_hand (w, d, gc, poly)
 ClockWidget	w;
 Drawable	d;
@@ -578,6 +583,7 @@ TPoint		poly[POLY_SIZE];
 			Convex, CoordModeOrigin);
 }
 
+void
 paint_hands (w, d, minute_gc, hour_gc)
 ClockWidget	w;
 Drawable	d;
