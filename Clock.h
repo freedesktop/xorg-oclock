@@ -26,6 +26,7 @@ other dealings in this Software without prior written authorization
 from The Open Group.
 
 */
+/* $XFree86: xc/programs/oclock/Clock.h,v 1.5 2001/12/14 20:01:00 dawes Exp $ */
 
 #ifndef _XtClock_h
 #define _XtClock_h
@@ -70,6 +71,7 @@ typedef struct _ClockRec *ClockWidget;  /* completely defined in ClockPrivate.h 
 typedef struct _ClockClassRec *ClockWidgetClass;    /* completely defined in ClockPrivate.h */
 
 extern WidgetClass clockWidgetClass;
+
 
 #endif /* _XtClock_h */
 /* DON'T ADD STUFF AFTER THIS #endif */
