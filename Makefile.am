@@ -43,8 +43,9 @@ appdefaultdir = $(sysconfdir)/X11/app-defaults
 APPDEFAULTFILES = \
         Clock-col
 
+SUFFIXES = .ad
 
-$(APPDEFAULTFILES): %: %.ad
+.ad:
 	cp $< $@
 
 appdefault_DATA = $(APPDEFAULTFILES)
