@@ -21,8 +21,8 @@
 
 bin_PROGRAMS = oclock
 
-oclock_CFLAGS = $(DEP_CFLAGS)
-oclock_LDADD = $(DEP_LIBS) -lm
+oclock_CFLAGS = $(OCLOCK_CFLAGS)
+oclock_LDADD = $(OCLOCK_LIBS) -lm
 
 oclock_SOURCES =	\
         Clock.c \
