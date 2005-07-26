@@ -50,7 +50,7 @@ SUFFIXES = .ad
 
 appdefault_DATA = $(APPDEFAULTFILES)
 
-EXTRA_DIST = $(foreach FILE, $(APPDEFAULTFILES), $(FILE).ad) oclock.bit oclmask.bit
+EXTRA_DIST = $(APPDEFAULTFILES:%=%.ad) oclock.bit oclmask.bit
 
 CLEANFILES = $(APPDEFAULTFILES)
 
