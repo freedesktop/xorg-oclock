@@ -32,7 +32,7 @@ oclock_SOURCES =	\
         transform.c \
         transform.h
 
-dist_man_MANS = \
+dist_man1_MANS = \
         oclock.man
 
 # App default files  (*.ad)
