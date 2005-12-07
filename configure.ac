@@ -36,6 +36,10 @@ PKG_CHECK_MODULES(OCLOCK, x11 xmu xext)
 AC_SUBST(OCLOCK_CFLAGS)
 AC_SUBST(OCLOCK_LIBS)
 
+PKG_CHECK_MODULES(APPDEFS, xt)
+appdefaultdir=$(pkg-config --variable=appdefaultdir xt)
+AC_SUBST(appdefaultdir)
+
 XORG_MANPAGE_SECTIONS
 XORG_RELEASE_VERSION
 
