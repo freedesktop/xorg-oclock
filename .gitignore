@@ -19,3 +19,7 @@ oclock
 oclock.1
 stamp-h1
 *~
+*.o
+oclock-*.tar.*
+ChangeLog
+tags
