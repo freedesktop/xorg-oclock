@@ -21,7 +21,7 @@
 
 bin_PROGRAMS = oclock
 
-AM_CFLAGS = $(OCLOCK_CFLAGS)
+AM_CFLAGS = $(OCLOCK_CFLAGS) $(CWARNFLAGS)
 oclock_LDADD = $(OCLOCK_LIBS) -lm
 
 oclock_SOURCES =	\
