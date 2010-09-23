@@ -36,8 +36,6 @@ AM_CONFIG_HEADER(config.h)
 
 # Checks for pkg-config packages
 PKG_CHECK_MODULES(OCLOCK, x11 xmu xext)
-AC_SUBST(OCLOCK_CFLAGS)
-AC_SUBST(OCLOCK_LIBS)
 
 PKG_CHECK_MODULES(APPDEFS, xt)
 xt_appdefaultdir=`$PKG_CONFIG --variable=appdefaultdir xt`
