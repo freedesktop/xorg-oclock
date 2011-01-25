@@ -70,14 +70,11 @@ static void save(Widget w, XtPointer client_data, XtPointer call_data)
 static void usage(void)
 {
     fprintf(stderr,
-"usage: oclock\n");
-    fprintf (stderr, 
-"       [-geometry [{width}][x{height}][{+-}{xoff}[{+-}{yoff}]]] [-display [{host}]:[{vs}]]\n");
-    fprintf(stderr,
-"       [-fg {color}] [-bg {color}] [-bd {color}] [-bw {pixels}]\n");
-    fprintf(stderr,
-"       [-minute {color}] [-hour {color}] [-jewel {color}]\n");
-    fprintf(stderr,
+"usage: oclock\n"
+"       [-geometry [{width}][x{height}][{+-}{xoff}[{+-}{yoff}]]]\n"
+"       [-display [{host}]:[{vs}]]\n"
+"       [-fg {color}] [-bg {color}] [-bd {color}] [-bw {pixels}]\n"
+"       [-minute {color}] [-hour {color}] [-jewel {color}]\n"
 "       [-backing {backing-store}] [-shape] [-noshape] [-transparent]\n");
     exit(1);
 }
