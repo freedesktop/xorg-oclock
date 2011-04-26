@@ -38,9 +38,8 @@ XORG_DEFAULT_OPTIONS
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for pkg-config packages
-PKG_CHECK_MODULES(OCLOCK, x11 xmu xext)
+PKG_CHECK_MODULES(OCLOCK, x11 xmu xext xt)
 
-PKG_CHECK_MODULES(APPDEFS, xt)
 xt_appdefaultdir=`$PKG_CONFIG --variable=appdefaultdir xt`
 AC_ARG_WITH(appdefaultdir,
 	AS_HELP_STRING([--with-appdefaultdir=<pathname>],
