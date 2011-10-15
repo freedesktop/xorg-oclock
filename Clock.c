@@ -1,6 +1,5 @@
 /*
- * $Xorg: Clock.c,v 1.4 2001/02/09 02:05:33 xorgcvs Exp $
- *
+
 Copyright 1989, 1998  The Open Group
 
 Permission to use, copy, modify, distribute, and sell this software and its
@@ -22,8 +21,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 Except as contained in this notice, the name of The Open Group shall not be
 used in advertising or otherwise to promote the sale, use or other dealings
 in this Software without prior written authorization from The Open Group.
- */
-/* $XFree86: xc/programs/oclock/Clock.c,v 1.6 2001/07/25 15:05:15 dawes Exp $ */
+
+*/
 
 /*
  * Clock.c
