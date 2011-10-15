@@ -31,7 +31,7 @@ in this Software without prior written authorization from The Open Group.
 #include <X11/Shell.h>
 #include <X11/Xmu/Editres.h>
 #include "Clock.h"
-#include <stdio.h> 
+#include <stdio.h>
 #include <stdlib.h>
 
 #ifdef XKB
@@ -44,7 +44,7 @@ in this Software without prior written authorization from The Open Group.
 static void die ( Widget w, XtPointer client_data, XtPointer call_data );
 static void save ( Widget w, XtPointer client_data, XtPointer call_data );
 static void usage ( void );
-static void quit ( Widget w, XEvent *event, String *params, 
+static void quit ( Widget w, XEvent *event, String *params,
 		   Cardinal *num_params );
 
 
@@ -96,14 +96,14 @@ static XrmOptionDescRec options[] = {
 {"-transparent","*clock.transparent",	XrmoptionNoArg,		"TRUE"},
 };
 
-int 
+int
 main(int argc, char *argv[])
 {
     XtAppContext xtcontext;
     Widget toplevel;
     Arg arg[2];
     int	i;
-    
+
     toplevel = XtOpenApplication(&xtcontext, "Clock",
 				 options, XtNumber(options), &argc, argv, NULL,
 				 sessionShellWidgetClass, NULL, 0);
@@ -117,7 +117,7 @@ main(int argc, char *argv[])
 	(toplevel, XtParseTranslationTable ("<Message>WM_PROTOCOLS: quit()"));
 
     i = 0;
-    XtSetArg (arg[i], XtNiconPixmap, 
+    XtSetArg (arg[i], XtNiconPixmap,
 	      XCreateBitmapFromData (XtDisplay(toplevel),
 				     XtScreen(toplevel)->root,
 				     (char *)oclock_bits,
@@ -139,7 +139,7 @@ main(int argc, char *argv[])
     (void) XSetWMProtocols (XtDisplay(toplevel), XtWindow(toplevel),
                             &wm_delete_window, 1);
 
-    XtAddEventHandler(toplevel, (EventMask) 0, TRUE, 
+    XtAddEventHandler(toplevel, (EventMask) 0, TRUE,
 		      _XEditResCheckMessages, NULL);
 
     XtAppMainLoop(xtcontext);
@@ -150,7 +150,7 @@ static void quit(Widget w, XEvent *event, String *params, Cardinal *num_params)
 {
     Arg arg;
 
-    if (event->type == ClientMessage && 
+    if (event->type == ClientMessage &&
 	event->xclient.data.l[0] != wm_delete_window) {
 #ifdef XKB
 	XkbStdBell(XtDisplay(w), XtWindow(w), 0, XkbBI_BadValue);

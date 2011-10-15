@@ -37,8 +37,8 @@ from The Open Group.
 #include	"transform.h"
 #include	<stdlib.h>
 
-static XPoint * 
-TranslatePoints(TPoint *points, int n_points, 
+static XPoint *
+TranslatePoints(TPoint *points, int n_points,
 		Transform *t, int mode)
 {
 	XPoint	*xpoints;
